@@ -16,3 +16,10 @@ type UserRepo interface {
 	GetById(id uint) (*models.User, error)
 	GetByMail(mail string) (*models.User, error)
 }
+
+type BusinessRepo interface {
+	Create(u *models.Business) (*models.Business, error)
+	Update(u *models.Business) (*models.Business, error)
+	Delete(id uint) error
+	GetById(id uint) (*models.User, error)
+}

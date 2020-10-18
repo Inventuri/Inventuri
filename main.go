@@ -1,10 +1,12 @@
 package main
 
 import (
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	fig "github.com/common-nighthawk/go-figure"
 	cli "github.com/urfave/cli/v2"
 	"log"
 	"os"
+	"Inventuri/app/db"
 )
 
 func main() {
@@ -23,5 +25,12 @@ func main() {
 func start(c *cli.Context) error{
 	fig.NewFigure(c.App.Name, "standard", true).Print()
 
-	return nil
+	//connect to Database
+	err := db.OpenConnection()
+	if err != nil {
+		log.Fatalf("Error connecting to the Database: %s", err.Error())
+	}
+
+
+	return err
 }

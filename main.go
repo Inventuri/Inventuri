@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Inventuri/app/models"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	fig "github.com/common-nighthawk/go-figure"
 	cli "github.com/urfave/cli/v2"
@@ -29,6 +30,14 @@ func start(c *cli.Context) error{
 	err := db.OpenConnection()
 	if err != nil {
 		log.Fatalf("Error connecting to the Database: %s", err.Error())
+	}
+
+	//migrate Models to the postgre Database
+	if err = db.Db.AutoMigrate(models.Product{}).Error; err != nil {
+		log.Fatalf("Error migrating Product to Database: %s", err.Error())
+	}
+	if err = db.Db.AutoMigrate(models.User{}).Error; err != nil {
+		log.Fatalf("Error migrating User to Database: %s", err.Error())
 	}
 
 

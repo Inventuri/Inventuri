@@ -45,5 +45,6 @@ func OpenConnection() error{
 	if err != nil {
 		log.Fatalf("Error connecting to the Database: %s", err.Error())
 	}
+	Db.LogMode(true)
 	return err
 }

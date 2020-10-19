@@ -1,13 +1,14 @@
 package main
 
 import (
+	"Inventuri/app/db"
 	"Inventuri/app/models"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-	fig "github.com/common-nighthawk/go-figure"
-	cli "github.com/urfave/cli/v2"
 	"log"
 	"os"
-	"Inventuri/app/db"
+
+	fig "github.com/common-nighthawk/go-figure"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	cli "github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 	}
 }
 
-func start(c *cli.Context) error{
+func start(c *cli.Context) error {
 	fig.NewFigure(c.App.Name, "standard", true).Print()
 
 	//connect to Database
@@ -39,7 +40,9 @@ func start(c *cli.Context) error{
 	if err = db.Db.AutoMigrate(models.User{}).Error; err != nil {
 		log.Fatalf("Error migrating User to Database: %s", err.Error())
 	}
-
+	if err = db.Db.AutoMigrate(models.Business{}).Error; err != nil {
+		log.Fatalf("Error migrating Business to Database: %s", err.Error())
+	}
 
 	return err
 }

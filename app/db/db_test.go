@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestConfigParsing(t *testing.T) {
+func testConfigParsing(t *testing.T) {
 	cfg, err := getConfig()
 	if err != nil {
 		t.Errorf("Error parsing the Configurationfile: %s", err.Error())
@@ -14,7 +14,7 @@ func TestConfigParsing(t *testing.T) {
 	}
 }
 
-func TestDBConnection(t *testing.T) {
+func testDBConnection(t *testing.T) {
 	err := OpenConnection()
 	if err != nil {
 		t.Errorf("Error connecting to the Database: %s", err.Error())
